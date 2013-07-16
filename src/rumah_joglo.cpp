@@ -922,19 +922,19 @@ void display(void) {
     //--------------------------------------------------------//
 			//batang
 			glPushMatrix();
-			glTranslatef(64.0,0.5,-1.5);
+			glTranslatef(6.0,-11.0,28.5);
 			glScalef(0.5, 1.0, 0.5);
 			glRotatef(90,0,1,0);
-			//pohon();
+			pohon();
 
 			//ranting1
 			glPushMatrix();
 			glTranslatef(64.0,-1.1,-1.5);
-			//ranting();
+			ranting();
 			//daun1
 			glPushMatrix();
 			glTranslatef(64.0,-1.1,-1.5);
-			//daun();
+			daun();
 
 			//ranting2
 			glPushMatrix();
@@ -946,34 +946,34 @@ void display(void) {
 			glPushMatrix();
 			glTranslatef(58.0,-2.0,-0.5);
 			glRotatef(90.0,0.0,60.0,0.0);
-			//daun();
+			daun();
 
 			//ranting3
 			glPushMatrix();
 			glTranslatef(64.0,-5.0,-1.5);
 			glRotatef(180.0,0.0,-50.0,0.0);
-			//ranting();
+			ranting();
 
 			//daun3
 			glPushMatrix();
 			glTranslatef(64.0,-2.0,-1.5);
 			glRotatef(180.0,0.0,-50.0,0.0);
-			//daun();
+			daun();
 
 			//daun4
 			glPushMatrix();
-			glTranslatef(62.0,1.3,-15.5);
-			//glRotatef(180.0,0.0,-90.0,0.0);
-			//daun();
+			glTranslatef(62.0,1.3,15.5);
+			glRotatef(180.0,0.0,-90.0,0.0);
+			daun();
 
 	//------------------------------------------------------//
 
 	//Jalan Setapak
 	//--------------------------------------------------------//
-		for (int i=0; i <= 15; i++ ){
+		for (int i=0; i <= 14; i++ ){
 		float j=4.5;
 		glPushMatrix();
-		glTranslatef(-45.0+j*i, -0.3, 39.0);
+		glTranslatef(-41.0+j*i, -0.3, 39.0);
 		//glRotated(20,0.0,20,0);
 		jalan_setapak();
 		}
@@ -1018,7 +1018,6 @@ void display(void) {
 			glTranslated(24.0, 8, 18);
 			glScaled(11.4, 0.6, 0.6);
 			pagar_rumah_atas();
-
 				//
 		//kiri
 		    for (int i=0; i <= 30; i++ ){
@@ -1028,6 +1027,12 @@ void display(void) {
 		    glScaled(0.7, 1.8, 1.4);
 		    pagar_rumah();
 		    }
+		    //atasnya
+		    glPushMatrix();
+		    glTranslated(-36, 8, -12);
+		    glScaled(0.6, 0.6, 30.4);
+		    pagar_rumah_atas();
+		    //
 		//kanan
 		    for (int i=0; i <= 30; i++ ){
 		    int j=2;
@@ -1036,6 +1041,12 @@ void display(void) {
 		    glScaled(0.7, 1.8, 1.4);
 		    pagar_rumah();
 		    }
+		    //atasnya
+		    glPushMatrix();
+		    glTranslated(36, 8, -12);
+		    glScaled(0.6, 0.6, 30.4);
+		    pagar_rumah_atas();
+		    //
 	    //belakang_kiri
 		    for (int i=0; i <= 10; i++ ){
 		    int j=2;
@@ -1044,6 +1055,13 @@ void display(void) {
 		    glScaled(1.4, 1.8, 0.9);
 		    pagar_rumah();
 		    }
+		    //atasnya
+		    glPushMatrix();
+		    glTranslated(-24.0, 8, -42);
+		    glScaled(11.4, 0.6, 0.6);
+		    pagar_rumah_atas();
+
+		    		//
 		//belakang_kanan
 		    for (int i=0; i <= 10; i++ ){
 		    int j=2;
@@ -1052,6 +1070,12 @@ void display(void) {
 		    glScaled(1.4, 1.8, 0.9);
 		    pagar_rumah();
 		    }
+		    //atasnya
+		    glPushMatrix();
+		    glTranslated(24, 8, -42);
+		    glScaled(11.4, 0.6, 0.6);
+		    pagar_rumah_atas();
+		    //
 
 	//---------------------------------------------------------//
 	glutSwapBuffers();
