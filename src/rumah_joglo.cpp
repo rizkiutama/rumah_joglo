@@ -532,31 +532,13 @@ void pagar_rumah(void){
 	           glPopMatrix();
 
 }
-void tutup_kandang(int scaley, int scalex, GLfloat r) {
-	glColor3i(0,0,0);
-	int i, j;
-   GLfloat v[scalex*scaley][3];
+void pagar_rumah_atas(void){
+		       glPushMatrix();
+	           glColor4f(0.0, 0.4, 0.0, 1.0);
+	           glutSolidCube(2.0f);
+	           glPopMatrix();
 
-   for (i=0; i<scalex; ++i) {
-     for (j=0; j<scaley; ++j) {
-       v[i*scaley+j][0]=r*cos(j*2*M_PI/scaley)*cos(i*M_PI/(2*scalex));
-       v[i*scaley+j][1]=r*sin(i*M_PI/(2*scalex));
-       v[i*scaley+j][2]=r*sin(j*2*M_PI/scaley)*cos(i*M_PI/(2*scalex));
-     }
-   }
-
-   glBegin(GL_QUADS);
-     for (i=0; i<scalex-1; ++i) {
-       for (j=0; j<scaley; ++j) {
-         glVertex3fv(v[i*scaley+j]);
-         glVertex3fv(v[i*scaley+(j+1)%scaley]);
-         glVertex3fv(v[(i+1)*scaley+(j+1)%scaley]);
-         glVertex3fv(v[(i+1)*scaley+j]);
-       }
-     }
-   glEnd();
- }
-
+}
 unsigned int LoadTextureFromBmpFile(char *filename);
 
 void display(void) {
@@ -934,7 +916,7 @@ void display(void) {
 
 			glPushMatrix();
 			glTranslatef(58.0, 12.3, -30.0);
-			tutup_kandang(24,24,2);
+			//tutup_kandang(24,24,2);
 
 	//pohon
     //--------------------------------------------------------//
@@ -988,11 +970,19 @@ void display(void) {
 
 	//Jalan Setapak
 	//--------------------------------------------------------//
-		for (int i=0; i <= 6; i++ ){
-		float j=5.0;
+		for (int i=0; i <= 15; i++ ){
+		float j=4.5;
 		glPushMatrix();
-		glTranslatef(-35.0+j*i, -0.3, 39.0);
-		glRotated(20,0.0,20,0);
+		glTranslatef(-45.0+j*i, -0.3, 39.0);
+		//glRotated(20,0.0,20,0);
+		jalan_setapak();
+		}
+
+		for (int i=0; i <= 2; i++ ){
+		float j=4.5;
+		glPushMatrix();
+		glTranslatef(-2.0, -0.3, 24.0+j*i);
+		glRotated(90,0.0,20,0);
 		jalan_setapak();
 		}
 	//--------------------------------------------------------//
@@ -1008,6 +998,13 @@ void display(void) {
 		    glScaled(1.4, 1.8, 0.7);
 		    pagar_rumah();
 		    }
+		//atasnya
+			glPushMatrix();
+			glTranslated(-24.0, 8, 18);
+			glScaled(11.4, 0.6, 0.6);
+			pagar_rumah_atas();
+
+		//
 		//depan_kanan
 		for (int i=0; i <= 10; i++ ){
 			int j=2;
@@ -1016,6 +1013,13 @@ void display(void) {
 			glScaled(1.4, 1.8, 0.7);
 			pagar_rumah();
 			}
+		//atasnya
+			glPushMatrix();
+			glTranslated(24.0, 8, 18);
+			glScaled(11.4, 0.6, 0.6);
+			pagar_rumah_atas();
+
+				//
 		//kiri
 		    for (int i=0; i <= 30; i++ ){
 		    int j=2;
