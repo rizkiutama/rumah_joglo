@@ -539,6 +539,15 @@ void pagar_rumah_atas(void){
 	           glPopMatrix();
 
 }
+
+void pagar_luar(){
+	glPushMatrix();
+	glColor3f(1.0,1.0,1.0);
+	glutSolidCube(3.0f);
+	glPopMatrix();
+
+
+}
 unsigned int LoadTextureFromBmpFile(char *filename);
 
 void display(void) {
@@ -975,7 +984,7 @@ void display(void) {
 		glPushMatrix();
 		glTranslatef(-41.0+j*i, -0.3, 39.0);
 		//glRotated(20,0.0,20,0);
-		jalan_setapak();
+		//jalan_setapak();
 		}
 
 		for (int i=0; i <= 2; i++ ){
@@ -983,7 +992,7 @@ void display(void) {
 		glPushMatrix();
 		glTranslatef(-2.0, -0.3, 24.0+j*i);
 		glRotated(90,0.0,20,0);
-		jalan_setapak();
+		//jalan_setapak();
 		}
 	//--------------------------------------------------------//
 	//
@@ -991,10 +1000,10 @@ void display(void) {
 	//Pagar Rumah//
 	//---------------------------------------------------------//
 		//depan_kiri
-		for (int i=0; i <= 10; i++ ){
+		for (int i=0; i <= 11; i++ ){
 		    int j=2;
 		    glPushMatrix();
-		    glTranslated(-34.0+j*i, 4, 18);
+		    glTranslated(-36.0+j*i, 4, 18);
 		    glScaled(1.4, 1.8, 0.7);
 		    pagar_rumah();
 		    }
@@ -1078,6 +1087,29 @@ void display(void) {
 		    //
 
 	//---------------------------------------------------------//
+
+	//---------------------------------------------------------//
+	//--------------------pagar_luar_kiri
+		        glPushMatrix();
+		        glTranslated(-45.0, 2, 53);
+		        glScaled(20.0, 1.5, 1.0);
+		        pagar_luar();
+		        glPushMatrix();
+		        glTranslatef(-11.5, 4.0, 52.5);
+		        glScaled(2.5, 3.0, 2.0);
+		        pagar_luar();
+    //--------------------pagar_luar_kanan
+		        glPushMatrix();
+		        glTranslated(45.0, 2, 53);
+		        glScaled(20.0, 1.5, 1.0);
+		        pagar_luar();
+		        glPushMatrix();
+		        glTranslatef(11.5, 4.0, 52.5);
+		        glScaled(2.5, 3.0, 2.0);
+		        pagar_luar();
+
+
+	//-------------------
 	glutSwapBuffers();
 	glFlush();
 	rot++;
@@ -1099,7 +1131,7 @@ void init(void) {
 
 	_terrain = loadTerrain("Terrain.bmp", 20);
 	_terrainTanah = loadTerrain("Jalan.bmp", 20);
-	_terrainAir = loadTerrain("heightmapAir.bmp", 20);
+	_terrainAir = loadTerrain("heightmapAir.bmp", 8);
 
 	//binding texture
 
