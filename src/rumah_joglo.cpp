@@ -242,22 +242,7 @@ void cleanup() {
 
 //untuk di display
 void drawSceneTanah(Terrain *terrain, GLfloat r, GLfloat g, GLfloat b) {
-	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	/*
-	 glMatrixMode(GL_MODELVIEW);
-	 glLoadIdentity();
-	 glTranslatef(0.0f, 0.0f, -10.0f);
-	 glRotatef(30.0f, 1.0f, 0.0f, 0.0f);
-	 glRotatef(-_angle, 0.0f, 1.0f, 0.0f);
 
-	 GLfloat ambientColor[] = {0.4f, 0.4f, 0.4f, 1.0f};
-	 glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
-
-	 GLfloat lightColor0[] = {0.6f, 0.6f, 0.6f, 1.0f};
-	 GLfloat lightPos0[] = {-0.5f, 0.8f, 0.1f, 0.0f};
-	 glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColor0);
-	 glLightfv(GL_LIGHT0, GL_POSITION, lightPos0);
-	 */
 	float scale = 150.0f / max(terrain->width() - 1, terrain->length() - 1);
 	glScalef(scale, scale, scale);
 	glTranslatef(-(float) (terrain->width() - 1) / 2, 0.0f,
@@ -299,19 +284,6 @@ void init(void) {
 	//binding texture
 
 }
-
-
-//Texture komponen rumah joglo//
-
-
-
-
-
-//-------------------------------//
-
-
-
-
 
 //BANGUN RUMAH JOGLO
 void lantai1()
@@ -429,6 +401,14 @@ void tiang_kandang(){
 	glColor4f(0.0, 0.0, 0.0, 0.0);
     glScalef(0.1,2.5,0.1);
 	glutSolidCube(5);
+	glPopMatrix();
+
+}
+void atap_kandang(){
+	glPushMatrix();
+	glColor3f(Red);
+	glScalef(0.5,0.06,0.5);
+	glutSolidCube(20);
 	glPopMatrix();
 
 }
@@ -553,14 +533,14 @@ void daun(void){
 
 void jalan_setapak(void){
 				glPushMatrix();
-				glColor3f(0.2,0.0,0.0);
+				glColor3f(DimGray);
 				glScalef(0.2,0.08,0.5);
 				glutSolidCube(15);
 				glPopMatrix();
 }
 void pagar_rumah(void){
 		       glPushMatrix();
-	           glColor4f(0.0, 0.4, 0.0, 1.0);
+	           glColor3f(DarkWood);
 	           glScalef(0.5,2.3,0.5);
 	           glutSolidCube(2.0f);
 	           glPopMatrix();
@@ -568,7 +548,7 @@ void pagar_rumah(void){
 }
 void pagar_rumah_atas(void){
 		       glPushMatrix();
-	           glColor4f(0.0, 0.4, 0.0, 1.0);
+	           glColor3f(DarkWood);
 	           glutSolidCube(2.0f);
 	           glPopMatrix();
 
@@ -712,9 +692,43 @@ void tutup_tiang(void){
 		gluCylinder(pObj, 1.3, 1.3, 1, 25, 25);
 		glPopMatrix();
 }
-void pagar_pisan(void){
+void tiang_kolam(void){
+	//silinder
+			GLUquadricObj *pObj;
+			pObj =gluNewQuadric();
+			gluQuadricNormals(pObj, GLU_SMOOTH);
+
+			glPushMatrix();
+			glColor3f(NeonBlue);
+			glRotatef(270,1,0,0);
+			gluCylinder(pObj, 1.3, 1.3, 6, 25, 25);
+			glPopMatrix();
 
 }
+void awan(void){
+glPushMatrix();
+glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+glColor3ub(153, 223, 255);
+glutSolidSphere(10, 50, 50);
+glPopMatrix();
+glPushMatrix();
+glTranslatef(10,70,-50);
+glutSolidSphere(5, 50, 90);
+glPopMatrix();
+glPushMatrix();
+glTranslatef(-2,65,-60);
+glutSolidSphere(10, 50, 80);
+glPopMatrix();
+glPushMatrix();
+glTranslatef(-10,63,-63);
+glutSolidSphere(7, 50, 70);
+glPopMatrix();
+glPushMatrix();
+glTranslatef(6,68,-65);
+glutSolidSphere(7, 120, 50);
+glPopMatrix();
+}
+
 
 
 
@@ -1056,8 +1070,6 @@ void display(void) {
          	  atap_atas();
          	//=================================================//
 
-
-
     //Kandang Ayam//
 
          	glPushMatrix();
@@ -1093,15 +1105,22 @@ void display(void) {
 			tiang_kandang();
 			}
 
+			//atap_kandang;
 			glPushMatrix();
-			glTranslatef(58.0, 12.3, -30.0);
-			//tutup_kandang(24,24,2);
+			glTranslatef(55.0, 15.0, -30.0);
+			glRotatef(45,0,0,45);
+			atap_kandang();
+
+			glPushMatrix();
+			glTranslatef(60.5, 15.0, -30.0);
+			glRotatef(45,0,0,-45);
+			atap_kandang();
 
 	//pohon
     //--------------------------------------------------------//
 			//batang
 			glPushMatrix();
-			glTranslatef(6.0,-11.0,28.5);
+			glTranslatef(64.0,0.5,-1.5);
 			glScalef(0.5, 1.0, 0.5);
 			glRotatef(90,0,1,0);
 			pohon();
@@ -1278,8 +1297,6 @@ void display(void) {
 		        glScaled(2.5, 3.0, 2.0);
 		        pagar_luar();
 
-
-
 		  //-------------------------------------------------------------//
 		  //Pagar gapura//
 		        //depan_kanan
@@ -1347,17 +1364,17 @@ void display(void) {
 		            //---------------------------------------------------------//
 		            //lampu 1
 		        		for (int i=0; i <=3; i++ ){
-		        			float j=-16;
+		        			//float j=-16;
 		                    glPushMatrix();
-		        			glTranslated(74.0+j*i, 12.7, 53.0);
+		        			glTranslated(74.0, 12.7, 53.0);
 		        			glScaled(0.4, 0.5, 0.5);
 		        			lampu();}
 		        	//---------------------------------------------------------//
 		        	//tiang lampu 1
 		        		for (int i=0; i <=3; i++ ){
-		        			float j=16;
+		        			float j=-16;
 		                    glPushMatrix();
-		        			glTranslated(-74.0+j*i, 11.7, 53.0);
+		        			glTranslated(74.0+j*i, 11.7, 53.0);
 		        			glScaled(0.4, 1.5, 0.8);
 		        			tiang_lampu();}
 		            //--------------------------------//
@@ -1427,9 +1444,9 @@ void display(void) {
 		        				            //---------------------------------------------------------//
 		        				            //lampu 1
 		        				        		for (int i=0; i <=3; i++ ){
-		        				        			float j=16;
+		        				        			//float j=16;
 		        				                    glPushMatrix();
-		        				        			glTranslated(-74.0+j*i, 12.7, 53.0);
+		        				        			glTranslated(-74.0, 12.7, 53.0);
 		        				        			glScaled(0.4, 0.5, 0.5);
 		        				        			lampu();}
 		        				        	//---------------------------------------------------------//
@@ -1441,7 +1458,29 @@ void display(void) {
 		        				        			glScaled(0.4, 1.5, 0.8);
 		        				        			tiang_lampu();}
 		        				            //--------------------------------//
-		        				//ending pagar luar kiri
+		        				//ending gapura luar kiri
+		        		//gapura tengah
+		        		for (int i=0; i <=15; i++ ){
+		        			float j=0.7;
+		        			glPushMatrix();
+		        			glTranslatef(11.6, 0.7+j*i, 53.0);
+		        			atas_gapura();
+		        		}
+
+		        		for (int i=0; i <=15; i++ ){
+		        		float j=0.7;
+		        		glPushMatrix();
+		        		glTranslatef(-11.6, 0.7+j*i, 53.0);
+		        		atas_gapura();
+		        		}
+		        		for (int i=0; i <=1; i++ ){
+		        		float y=23.2;
+		        	    glPushMatrix();
+		        		glTranslated(-11.6+y*i, 12.7, 53.0);
+		        		glScaled(0.4, 0.8, 0.5);
+		        		lampu();}
+
+		        	    //ending gapura tengah
 
 
 		                 // kaki kursi
@@ -1600,17 +1639,42 @@ void display(void) {
 		        			glRotatef(-270.0,0.0,-50.0,0.0);
 		        			daun();
 
-		        			/*glPushMatrix();
-		                    glTranslatef(-69,2,25);
-		        	        glScalef(0.5, 0.5, 0.5);
-		        	        pohon();
-		        	       // glPopMatrix();
-		                   */
+		        			//ending pohon//
+	//tiang kolam------------------//
+	glPushMatrix();
+	glTranslatef(45.8,-1.0,40.0);
+	tiang_kolam();
 
-		                  /* glPushMatrix();
-		                   glTranslatef(-2,85,2);
-		                   glScalef(0.5, 0.5, 0.5);
-		                   awan();*/
+	glPushMatrix();
+	glTranslatef(45.8,5.0,40.0);
+	glScalef(4.0,1.5,4.0);
+	atas_gapura();
+	//ending tiang kolam------------//
+
+	//Jalan setapak-------------------//
+
+	for (int i=0; i <= 14; i++ ){
+	float j=4.5;
+	glPushMatrix();
+	glTranslatef(-58.0+j*i, -0.3, -51.0);
+	//glRotated(20,0.0,20,0);
+	jalan_setapak();
+	}
+	for (int i=0; i <= 20; i++ ){
+	float j=4.5;
+	glPushMatrix();
+	glTranslatef(-64.0, -0.3, -50.0+j*i);
+	glRotated(90,0.0,20,0);
+	jalan_setapak();
+	}
+	//----------------------------------//
+
+	//----------------------------------//
+	glPushMatrix();
+	glTranslatef(30, 90, -150);
+	glScalef(1.8, 1.0, 1.0);
+	awan();
+	//---------------------------------//
 	glutSwapBuffers();
 	glFlush();
 	rot++;
