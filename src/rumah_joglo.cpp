@@ -11,9 +11,14 @@
 #include <GL/glut.h>
 #include <GL/glu.h>
 #include <GL/gl.h>
+#include <SOIL/SOIL.h>
 #include "imageloader.h"
 #include "vec3f.h"
+#include "color.h"
 #endif
+
+
+
 
 //static GLfloat spin, spin2 = 0.0;
 float angle = 0;
@@ -274,6 +279,35 @@ void drawSceneTanah(Terrain *terrain, GLfloat r, GLfloat g, GLfloat b) {
 	}
 
 }
+void init(void) {
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glDepthFunc(GL_LESS);
+	glEnable(GL_NORMALIZE);
+	glEnable(GL_COLOR_MATERIAL);
+	glDepthFunc(GL_LEQUAL);
+	glShadeModel(GL_SMOOTH);
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+	glEnable(GL_CULL_FACE);
+
+
+	_terrain = loadTerrain("Terrain.bmp", 20);
+	_terrainTanah = loadTerrain("Jalan.bmp", 20);
+	_terrainAir = loadTerrain("heightmapAir.bmp", 8);
+
+	//binding texture
+
+}
+
+
+//Texture komponen rumah joglo//
+
+
+
+
+
+//-------------------------------//
 
 
 
@@ -282,11 +316,9 @@ void drawSceneTanah(Terrain *terrain, GLfloat r, GLfloat g, GLfloat b) {
 //BANGUN RUMAH JOGLO
 void lantai1()
 {
-	glPushMatrix();
-    glTranslatef(-10.0f, -5.3f, 13.5f);
-    //glColor4f(0.8, 0.8, 0.8, 0.8);
-    glScalef(0.5,0.5,0.5);
-    //glutSolidCube(12.0f);
+ glPushMatrix();
+ glTranslatef(-10.0f, -5.3f, 13.5f);
+ glScalef(0.5,0.5,0.5);
  glBegin(GL_QUADS);        // Draw The Cube Using quads
  glColor3f(1.1f,1.0f,1.1f);    // Color Blue
  glVertex3f( 48.0f, 1.0f,-40.0f);    // Top Right Of The Quad (Top)
@@ -404,18 +436,20 @@ void tiang_kandang(){
 void atap()
 {
 	glPushMatrix();
-    glBegin(GL_POLYGON);        // Draw The Cube Using quads
+	glBegin(GL_POLYGON);
     //atap depan bawah
-    glColor3f(1.2f,0.0f,0.0f);    // Color Blue
+	glColor3f(Red);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
     glVertex3f( 4.8f, 11.9f,34.0f);    // Top Right Of The Quad (Front)
     glVertex3f(-21.0f,11.9f,34.0f);    // Top Left Of The Quad (Front)
     glVertex3f(-48.0f,5.6f, 58.5f);    // Bottom Left Of The Quad (Front)
     glVertex3f( 32.0f,5.6f, 58.5f);
+    glPopMatrix();
     glEnd();
+
     //atap kanan bawah
     glBegin(GL_POLYGON);
-    glColor3f(1.2f,0.0f,0.0f);
+    glColor3f(Red);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
     glVertex3f(-21.0f, 11.9f, 34.0f);    // Top Right Of The Quad (Left)
     glVertex3f(-21.0f,11.9f,13.0f);    // Top Left Of The Quad (Left)
@@ -424,7 +458,7 @@ void atap()
     glEnd();
     //atap belakang bawah
     glBegin(GL_POLYGON);
-    glColor3f(1.2f,0.0f,0.0f);    // Color Yellow
+    glColor3f(Red);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
      glVertex3f( 32.0f,5.6f,-10.6f);    // Top Right Of The Quad (Back)
      glVertex3f(-48.0f,5.6f,-10.6f);    // Top Left Of The Quad (Back)
@@ -433,7 +467,7 @@ void atap()
     glEnd();
     //atap kiri bawah
     glBegin(GL_POLYGON);
-    glColor3f(1.2f,0.0f,0.0f);    // Color Violet
+    glColor3f(Red);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
      glVertex3f( 4.65f, 11.9f,13.0f);    // Top Right Of The Quad (Right)
      glVertex3f( 4.65f, 11.9f,34.0f);    // Top Left Of The Quad (Right)
@@ -447,7 +481,7 @@ void atap_atas(void){
 	glPushMatrix();
 	    glBegin(GL_POLYGON);        // Draw The Cube Using quads
 	    //atap depan atas
-	    glColor3f(1.2f,0.0f,0.0f);    // Color Blue
+	    glColor3f(Red);    // Color Blue
 	    glVertex3f( -3.3f,22.5f,24.0f);    // Top Right Of The Quad (Front)
 	    glVertex3f(-12.8f,22.5f,24.0f);    // Top Left Of The Quad (Front)
 	    glVertex3f(-21.2f,11.7f, 34.2f);    // Bottom Left Of The Quad (Front)
@@ -455,7 +489,7 @@ void atap_atas(void){
 	    glEnd();
 	    //atap kanan atas
 	    glBegin(GL_POLYGON);
-	    glColor3f(1.2f,0.0f,0.0f);
+	    glColor3f(Red);
 	    glVertex3f(-12.5f, 22.5f,24.0f);    // Top Right Of The Quad (Left)
 	    glVertex3f(-12.5f,22.5f,23.1f);    // Top Left Of The Quad (Left)
 	    glVertex3f(-21.2f,11.7f,12.7f);    // Bottom Left Of The Quad (Left)
@@ -463,7 +497,7 @@ void atap_atas(void){
 	    glEnd();
 	    //atap belakang atas
 	    glBegin(GL_POLYGON);
-	    glColor3f(1.2f,0.0f,0.0f);    // Color Yellow
+	    glColor3f(Red);
 	    glVertex3f( 4.8f,11.7f,12.7f);    // Top Right Of The Quad (Back)
 	    glVertex3f(-21.2f,11.7f,12.7f);    // Top Left Of The Quad (Back)
 	    glVertex3f(-12.8f, 22.5f,23.1f);    // Bottom Left Of The Quad (Back)
@@ -471,7 +505,7 @@ void atap_atas(void){
 	    glEnd();
 	    //atap kiri atas
 	    glBegin(GL_POLYGON);
-	    glColor3f(1.2f,0.0f,0.0f);    // Color Violet
+	    glColor3f(Red);
 	    glVertex3f( -3.3f, 22.5f,23.1f);    // Top Right Of The Quad (Right)
 	    glVertex3f( -3.3f, 22.5f,24.0f);    // Top Left Of The Quad (Right)
 	    glVertex3f( 4.8f,11.7f, 34.2f);    // Bottom Left Of The Quad (Right)
@@ -548,7 +582,7 @@ void pagar_luar(){
 
 
 }
-unsigned int LoadTextureFromBmpFile(char *filename);
+//unsigned int LoadTextureFromBmpFile(char *filename);
 
 void display(void) {
 	glClearStencil(0); //clear the stencil buffer
@@ -1117,25 +1151,6 @@ void display(void) {
 
 }
 
-void init(void) {
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	glDepthFunc(GL_LESS);
-	glEnable(GL_NORMALIZE);
-	glEnable(GL_COLOR_MATERIAL);
-	glDepthFunc(GL_LEQUAL);
-	glShadeModel(GL_SMOOTH);
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-	glEnable(GL_CULL_FACE);
-
-	_terrain = loadTerrain("Terrain.bmp", 20);
-	_terrainTanah = loadTerrain("Jalan.bmp", 20);
-	_terrainAir = loadTerrain("heightmapAir.bmp", 8);
-
-	//binding texture
-
-}
 
 static void kibor(int key, int x, int y) {
 	switch (key) {
