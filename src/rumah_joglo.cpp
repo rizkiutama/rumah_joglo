@@ -187,11 +187,12 @@ public:
 //end class
 
 
+GLuint _textureId; //The id of the texture
 void initRendering() {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
-	//glEnable(GL_LIGHTING);
-	//glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
 	glEnable(GL_NORMALIZE);
 	glShadeModel(GL_SMOOTH);
 }
@@ -264,6 +265,32 @@ void drawSceneTanah(Terrain *terrain, GLfloat r, GLfloat g, GLfloat b) {
 	}
 
 }
+ 	GLfloat LightAmbient[] = {0.5f, 0.5f, 0.5f, 1.0f};
+	GLfloat LightDiffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
+	GLfloat LightPosition[] = {0.0f, 0.0f, 2.0f, 1.0f};
+
+	GLuint tex_2d;
+	GLuint LoadGLTextures(const char *filename) {
+    tex_2d = SOIL_load_OGL_texture(filename, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
+    glBindTexture(GL_TEXTURE_2D, tex_2d);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+    return tex_2d;
+}
+
+GLuint LoadGLTextures2(const char *filename) {
+    tex_2d = SOIL_load_OGL_texture(filename, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID,SOIL_FLAG_INVERT_Y);
+    return tex_2d;
+}
+
+GLuint LoadGLTextures3(const char *filename) {
+    tex_2d = SOIL_load_OGL_texture(filename, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
+    glBindTexture(GL_TEXTURE_2D, tex_2d);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_REPEAT);
+    return tex_2d;
+}
+
 void init(void) {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
@@ -288,44 +315,46 @@ void init(void) {
 //BANGUN RUMAH JOGLO
 void lantai1()
 {
- glPushMatrix();
+ //glPushMatrix();
  glTranslatef(-10.0f, -5.3f, 13.5f);
  glScalef(0.5,0.5,0.5);
+
  glBegin(GL_QUADS);        // Draw The Cube Using quads
- glColor3f(1.1f,1.0f,1.1f);    // Color Blue
- glVertex3f( 48.0f, 1.0f,-40.0f);    // Top Right Of The Quad (Top)
- glVertex3f(-48.0f, 1.0f,-40.0f);    // Top Left Of The Quad (Top)
- glVertex3f(-48.0f, 1.0f, 40.0f);    // Bottom Left Of The Quad (Top)
- glVertex3f( 48.0f, 1.0f, 40.0f);    // Bottom Right Of The Quad (Top)
- glColor3f(1.0f,1.0f,1.0f);    // Color Orange
+ glColor3f(1.1f,1.0f,1.1f);    
+ glTexCoord2f(0.0f, 0.0f);glVertex3f( 48.0f, 1.0f,-40.0f);    // Top Right Of The Quad (Top)
+ glTexCoord2f(1.0f, 0.0f);glVertex3f(-48.0f, 1.0f,-40.0f);    // Top Left Of The Quad (Top)
+ glTexCoord2f(1.0f, 1.0f);glVertex3f(-48.0f, 1.0f, 40.0f);    // Bottom Left Of The Quad (Top)
+ glTexCoord2f(0.0f, 1.0f);glVertex3f( 48.0f, 1.0f, 40.0f);    // Bottom Right Of The Quad (Top)
+
+ glColor3f(1.0f,1.0f,1.0f);   
  glVertex3f( 48.0f,-0.0f, 35.0f);    // Top Right Of The Quad (Bottom)
  glVertex3f(-48.0f,-0.0f, 35.0f);    // Top Left Of The Quad (Bottom)
  glVertex3f(-48.0f,-0.0f,-35.0f);    // Bottom Left Of The Quad (Bottom)
  glVertex3f( 48.0f,-0.0f,-35.0f);    // Bottom Right Of The Quad (Bottom)
- glColor3f(1.0f,1.0f,1.0f);    // Color Red
+ glColor3f(1.0f,1.0f,1.0f);   
  glVertex3f( 48.0f, 1.0f, 40.0f);    // Top Right Of The Quad (Front)
  glVertex3f(-48.0f, 1.0f, 40.0f);    // Top Left Of The Quad (Front)
  glVertex3f(-48.0f,-1.0f, 40.0f);    // Bottom Left Of The Quad (Front)
  glVertex3f( 48.0f,-1.0f, 40.0f);    // Bottom Right Of The Quad (Front)
- glColor3f(1.0f,1.0f,1.0f);    // Color Yellow
+ glColor3f(1.0f,1.0f,1.0f);   
  glVertex3f( 48.0f,-1.0f,-40.0f);    // Top Right Of The Quad (Back)
  glVertex3f(-48.0f,-1.0f,-40.0f);    // Top Left Of The Quad (Back)
  glVertex3f(-48.0f, 1.0f,-40.0f);    // Bottom Left Of The Quad (Back)
  glVertex3f( 48.0f, 1.0f,-40.0f);    // Bottom Right Of The Quad (Back)
- glColor3f(1.0f,1.0f,1.0f);    // Color Blue
+ glColor3f(1.0f,1.0f,1.0f);   
  glVertex3f(-48.0f, 1.0f, 40.0f);    // Top Right Of The Quad (Left)
  glVertex3f(-48.0f, 1.0f,-40.0f);    // Top Left Of The Quad (Left)
  glVertex3f(-48.0f,-1.0f,-40.0f);    // Bottom Left Of The Quad (Left)
  glVertex3f(-48.0f,-1.0f, 40.0f);    // Bottom Right Of The Quad (Left)
- glColor3f(1.0f,1.0f,1.0f);    // Color Violet
+ glColor3f(1.0f,1.0f,1.0f); 
  glVertex3f( 48.0f, 1.0f,-40.0f);    // Top Right Of The Quad (Right)
  glVertex3f( 48.0f, 1.0f, 40.0f);    // Top Left Of The Quad (Right)
  glVertex3f( 48.0f,-1.0f, 40.0f);    // Bottom Left Of The Quad (Right)
  glVertex3f( 48.0f,-1.0f,-40.0f);    // Bottom Right Of The Quad (Right)
-
+ glDisable(GL_TEXTURE_2D);
  glEnd();
+    
 
-    glPopMatrix();
 
 }
 
@@ -340,7 +369,8 @@ void umpak1(){
     }
 //sokoguru(tiang)
 void sokoguru(){
-       glPushMatrix();
+
+	   glPushMatrix();
        glColor4f(1.0, 0.4, 0.0, 1.0);
        glScalef(0.5,0.5,0.5);
        glutSolidCube(2.0f);
@@ -415,54 +445,89 @@ void atap_kandang(){
 
 void atap()
 {
-	glPushMatrix();
 	glBegin(GL_POLYGON);
-    //atap depan bawah
-	glColor3f(Red);
-    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-    glVertex3f( 4.8f, 11.9f,34.0f);    // Top Right Of The Quad (Front)
-    glVertex3f(-21.0f,11.9f,34.0f);    // Top Left Of The Quad (Front)
-    glVertex3f(-48.0f,5.6f, 58.5f);    // Bottom Left Of The Quad (Front)
-    glVertex3f( 32.0f,5.6f, 58.5f);
-    glPopMatrix();
-    glEnd();
+	    //atap depan bawah
+		glColor3f(Red);
+	    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+	    glVertex3f( 4.8f, 11.9f,34.0f);    // Top Right Of The Quad (Front)
+	    glVertex3f(-21.0f,11.9f,34.0f);    // Top Left Of The Quad (Front)
+	    glVertex3f(-48.0f,5.6f, 58.5f);    // Bottom Left Of The Quad (Front)
+	    glVertex3f( 32.0f,5.6f, 58.5f);
+	    glPopMatrix();
+	    glEnd();
 
-    //atap kanan bawah
-    glBegin(GL_POLYGON);
-    glColor3f(Red);
-    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-    glVertex3f(-21.0f, 11.9f, 34.0f);    // Top Right Of The Quad (Left)
-    glVertex3f(-21.0f,11.9f,13.0f);    // Top Left Of The Quad (Left)
-    glVertex3f(-48.0f,5.6f,-10.6f);    // Bottom Left Of The Quad (Left)
-    glVertex3f(-48.0f,5.6f, 58.5f);    // Bottom Right Of The Quad (Left)
-    glEnd();
-    //atap belakang bawah
-    glBegin(GL_POLYGON);
-    glColor3f(Red);
-    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-     glVertex3f( 32.0f,5.6f,-10.6f);    // Top Right Of The Quad (Back)
-     glVertex3f(-48.0f,5.6f,-10.6f);    // Top Left Of The Quad (Back)
-     glVertex3f(-21.0f, 11.9f,13.0f);    // Bottom Left Of The Quad (Back)
-     glVertex3f( 4.8f, 11.9f,13.0f);    // Bottom Right Of The Quad (Back)glEnd();
-    glEnd();
-    //atap kiri bawah
-    glBegin(GL_POLYGON);
-    glColor3f(Red);
-    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-     glVertex3f( 4.65f, 11.9f,13.0f);    // Top Right Of The Quad (Right)
-     glVertex3f( 4.65f, 11.9f,34.0f);    // Top Left Of The Quad (Right)
-     glVertex3f( 32.0f,5.6f, 58.5f);    // Bottom Left Of The Quad (Right)
-     glVertex3f( 32.0f,5.6f,-10.6f);    // Bottom Right Of The Quad (Right)
-    glEnd();
-     glPopMatrix();
+	    //atap kanan bawah
+	    glBegin(GL_POLYGON);
+	    glColor3f(Red);
+	    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+	    glVertex3f(-21.0f, 11.9f, 34.0f);    // Top Right Of The Quad (Left)
+	    glVertex3f(-21.0f,11.9f,13.0f);    // Top Left Of The Quad (Left)
+	    glVertex3f(-48.0f,5.6f,-10.6f);    // Bottom Left Of The Quad (Left)
+	    glVertex3f(-48.0f,5.6f, 58.5f);    // Bottom Right Of The Quad (Left)
+	    glEnd();
+	    //atap belakang bawah
+	    glBegin(GL_POLYGON);
+	    glColor3f(Red);
+	    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+	     glVertex3f( 32.0f,5.6f,-10.6f);    // Top Right Of The Quad (Back)
+	     glVertex3f(-48.0f,5.6f,-10.6f);    // Top Left Of The Quad (Back)
+	     glVertex3f(-21.0f, 11.9f,13.0f);    // Bottom Left Of The Quad (Back)
+	     glVertex3f( 4.8f, 11.9f,13.0f);    // Bottom Right Of The Quad (Back)glEnd();
+	    glEnd();
+	    //atap kiri bawah
+	    glBegin(GL_POLYGON);
+	    glColor3f(Red);
+	    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+	     glVertex3f( 4.65f, 11.9f,13.0f);    // Top Right Of The Quad (Right)
+	     glVertex3f( 4.65f, 11.9f,34.0f);    // Top Left Of The Quad (Right)
+	     glVertex3f( 32.0f,5.6f, 58.5f);    // Bottom Left Of The Quad (Right)
+	     glVertex3f( 32.0f,5.6f,-10.6f);    // Bottom Right Of The Quad (Right)
+	    glEnd();
+
+	     //bawah atap
+	    //belakang
+	      glBegin(GL_POLYGON);
+	      glColor3f(Red);    // Color Orange
+	      glVertex3f( 4.8f,11.9f, 14.0f);    // Top Right Of The Quad (Bottom)
+	      glVertex3f(-21.0f,11.9f, 14.0f);    // Top Left Of The Quad (Bottom)
+	      glVertex3f(-48.0f,5.6f,-10.0f);    // Bottom Left Of The Quad (Bottom)
+	      glVertex3f( 32.0f,5.6f,-10.0f);    // Bottom Right Of The Quad (Bottom)
+	      glEnd();
+	      //depan
+	      glBegin(GL_POLYGON);
+	      glColor3f(Red);    // Color Orange
+	      glVertex3f( 32.0f,5.6f, 58.0f);    // Top Right Of The Quad (Bottom)
+	      glVertex3f(-48.0f,5.6f, 58.0f);    // Top Left Of The Quad (Bottom)
+	      glVertex3f(-21.0f,11.9f,32.0f);    // Bottom Left Of The Quad (Bottom)
+	      glVertex3f( 4.8f,11.9f,32.0f);    // Bottom Right Of The Quad (Bottom)
+	      glEnd();
+	      //kiri
+	      glBegin(GL_POLYGON);
+	      glColor3f(Red);    // Color Orange
+	      glVertex3f(-20.0f,11.9f, 34.0f);    // Top Right Of The Quad (Bottom)
+	      glVertex3f(-48.0f,5.6f,58.0f);    // Top Left Of The Quad (Bottom)
+	      glVertex3f(-48.0f,5.6f,-10.0f);    // Bottom Left Of The Quad (Bottom)
+	      glVertex3f(-20.0f,11.9f,13.0f);    // Bottom Right Of The Quad (Bottom)
+	      glEnd();
+	      //kanan
+	      glBegin(GL_POLYGON);
+	      glColor3f(Red);    // Color Orange
+	      glVertex3f(32.0f,5.6f, 58.0f);    // Top Right Of The Quad (Bottom)
+	      glVertex3f(4.6f,11.9f,34.0f);    // Top Left Of The Quad (Bottom)
+	      glVertex3f(4.6f,11.9f,13.0f);    // Bottom Left Of The Quad (Bottom)
+	      glVertex3f(32.0f,5.6f,-10.0f);    // Bottom Right Of The Quad (Bottom)
+	      glEnd();
+	      glPopMatrix();
+     //ending atap
+     //-------------------------------------//
 
 }
 void atap_atas(void){
 	glPushMatrix();
-	    glBegin(GL_POLYGON);        // Draw The Cube Using quads
+	    glBegin(GL_POLYGON);    
 	    //atap depan atas
-	    glColor3f(Red);    // Color Blue
-	    glVertex3f( -3.3f,22.5f,24.0f);    // Top Right Of The Quad (Front)
+	    glColor3f(Red);   
+	    glVertex3f( -3.3f,22.5f,24.0f);  // Top Right Of The Quad (Front)
 	    glVertex3f(-12.8f,22.5f,24.0f);    // Top Left Of The Quad (Front)
 	    glVertex3f(-21.2f,11.7f, 34.2f);    // Bottom Left Of The Quad (Front)
 	    glVertex3f( 4.8f,11.7f, 34.2f);
@@ -481,7 +546,7 @@ void atap_atas(void){
 	    glVertex3f( 4.8f,11.7f,12.7f);    // Top Right Of The Quad (Back)
 	    glVertex3f(-21.2f,11.7f,12.7f);    // Top Left Of The Quad (Back)
 	    glVertex3f(-12.8f, 22.5f,23.1f);    // Bottom Left Of The Quad (Back)
-	    glVertex3f( -3.3f, 22.5f,23.1f);    // Bottom Right Of The Quad (Back)glEnd();
+	    glVertex3f( -3.3f, 22.5f,23.1f);    // Bottom Right Of The Quad (Back)
 	    glEnd();
 	    //atap kiri atas
 	    glBegin(GL_POLYGON);
@@ -491,8 +556,41 @@ void atap_atas(void){
 	    glVertex3f( 4.8f,11.7f, 34.2f);    // Bottom Left Of The Quad (Right)
 	    glVertex3f( 4.8f,11.7f,12.7f);    // Bottom Right Of The Quad (Right)
 	    glEnd();
-	    glPopMatrix();
 
+	    //atas atap--------------------------------//
+	    //belakang
+	    glBegin(GL_POLYGON);
+	    glColor3f(Red);    
+	    glVertex3f( -3.3f,22.5f, 23.0f);    // Top Right Of The Quad (Bottom)
+	    glVertex3f(-12.8f,22.5f, 23.0f);    // Top Left Of The Quad (Bottom)
+	    glVertex3f(-21.0f,11.7f,12.7f);    // Bottom Left Of The Quad (Bottom)
+	    glVertex3f( 4.8f,11.7f,12.7f);    // Bottom Right Of The Quad (Bottom)
+	    glEnd();
+	    //depan
+	    glBegin(GL_POLYGON);
+	    glColor3f(Red);   
+	    glVertex3f( 4.8f,11.7f,34.2f);    // Top Right Of The Quad (Bottom)
+	    glVertex3f(-21.2f,11.7f,34.2f);    // Top Left Of The Quad (Bottom)
+	    glVertex3f(-12.8f,22.5f,24.0f);    // Bottom Left Of The Quad (Bottom)
+	    glVertex3f(-3.3f,22.5f,24.0f);    // Bottom Right Of The Quad (Bottom)
+	    glEnd();
+	    //kiri
+	    glBegin(GL_POLYGON);
+	    glColor3f(Red);   
+	    glVertex3f(-12.5f,22.5f, 24.0f);    // Top Right Of The Quad (Bottom)
+	    glVertex3f(-21.2f,11.7f,34.2f);    // Top Left Of The Quad (Bottom)
+	    glVertex3f(-21.2f,11.7f,12.7f);    // Bottom Left Of The Quad (Bottom)
+	    glVertex3f(-12.5f,22.5f,23.0f);    // Bottom Right Of The Quad (Bottom)
+	    glEnd();
+	    //kanan
+	    glBegin(GL_POLYGON);
+	    glColor3f(Red);  
+	    glVertex3f(4.8f,11.7f, 34.0f);    // Top Right Of The Quad (Bottom)
+	    glVertex3f(-3.3f,22.5f,24.0f);    // Top Left Of The Quad (Bottom)
+	    glVertex3f(-3.3f,22.5f,23.1f);    // Bottom Left Of The Quad (Bottom)
+	    glVertex3f(4.8f,11.7f,12.7f);    // Bottom Right Of The Quad (Bottom)
+	    glEnd();
+	    glPopMatrix();
 
 
 }
@@ -539,18 +637,18 @@ void jalan_setapak(void){
 				glPopMatrix();
 }
 void pagar_rumah(void){
-		       glPushMatrix();
-	           glColor3f(DarkWood);
-	           glScalef(0.5,2.3,0.5);
-	           glutSolidCube(2.0f);
-	           glPopMatrix();
+		    glPushMatrix();
+	     glColor3f(DarkWood);
+	     glScalef(0.5,2.3,0.5);
+	     glutSolidCube(2.0f);
+	     glPopMatrix();
 
 }
 void pagar_rumah_atas(void){
-		       glPushMatrix();
-	           glColor3f(DarkWood);
-	           glutSolidCube(2.0f);
-	           glPopMatrix();
+		   glPushMatrix();
+	    glColor3f(DarkWood);
+	    glutSolidCube(2.0f);
+	    glPopMatrix();
 
 }
 
@@ -589,21 +687,21 @@ void atas_gapura2(){
 void atas_gapura3(){
 	glPushMatrix();
 	glColor4f(0.5, 0.5, 0.5, 0.5);
-    glScalef(0.5,0.05,0.5);
+ glScalef(0.5,0.05,0.5);
 	glutSolidCube(4);
 	glPopMatrix();
 }
 void atas_gapura4(){
 	glPushMatrix();
 	glColor4f(0.5, 0.5, 0.5, 0.5);
-    glScalef(0.5,0.05,0.5);
+  glScalef(0.5,0.05,0.5);
 	glutSolidCube(3.0);
 	glPopMatrix();
 }
 void atas_gapura5(){
 	glPushMatrix();
 	glColor4f(0.5, 0.5, 0.5, 0.5);
-    glScalef(0.5,0.05,0.5);
+  glScalef(0.5,0.05,0.5);
 	glutSolidCube(2.0);
 	glPopMatrix();
 }
@@ -625,10 +723,10 @@ void atas_gapura7(){
 //pagar_gapura
 void pagar_gapura(void){
 		       glPushMatrix();
-	           glColor4f(0.5, 0.4, 0.5, 0.5);
-	           glScalef(0.5,2.3,0.5);
-	           glutSolidCube(0.7f);
-	           glPopMatrix();
+	        glColor4f(0.5, 0.4, 0.5, 0.5);
+	       glScalef(0.5,2.3,0.5);
+	        glutSolidCube(0.7f);
+	        glPopMatrix();
 
 }
 void pagar_gapura_atas(void){
@@ -740,7 +838,8 @@ void display(void) {
 	glClearColor(0.0, 0.6, 0.8, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT); //clear the buffers
 	glLoadIdentity();
-	gluLookAt(viewx-110, viewy+20, viewz+20, 0.0, 10.0, 5.0, 0.0, 1.0, 0.0);
+	gluLookAt(viewx-110, viewy+20, viewz+20, 0.0, 10.0, 5.0, 0.0, 1.0,
+			0.0);
 
 	glPushMatrix();
 
@@ -761,10 +860,14 @@ void display(void) {
 	glPopMatrix();
 
     //lantai joglo
+	LoadGLTextures ("lantai.jpg");
+	glEnable(GL_TEXTURE_2D);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glPushMatrix();
     glTranslatef(18.0, 9.0,-35.0);
     glScaled(1.7, 1.7, 1.7);
     lantai1();
+    glDisable(GL_TEXTURE_2D);
 
     // Umpak Mulai
     //---------------------------------------------------
@@ -949,6 +1052,11 @@ void display(void) {
          glPushMatrix();
          glTranslatef(-0, 41.8, -12);
          glScaled(7.0, 0.6, 0.6);
+         blandar_sunduk();
+
+         glPushMatrix();
+         glTranslatef(-0, 42.5, -12);
+         glScaled(7.5, 0.2, 0.9);
          blandar_sunduk();
          //
 
@@ -1381,19 +1489,19 @@ void display(void) {
 		//ending pagar luar kiri
 		        		//depan_kiri
 		        				        //1
-		        				        for (int i=0; i <=15; i++ ){
-		        				        	float j=0.7;
-		        				        	glPushMatrix();
-		        				        	glTranslatef(-74.0, 0.7+j*i, 53.0);
-		        				        	atas_gapura();
-		        				        	}
-		        				        	 //ujung gapura
-		        				        	for (int i=0; i <= 4; i++ ){
-		        				        	int j=16;
-		        				        	glPushMatrix();
-		        				        	glTranslatef(-74+j*i, 7.35, 53.0);
-		        				        	atas_gapura2();
-		        				        	}
+		      for (int i=0; i <=15; i++ ){
+		      float j=0.7;
+		      glPushMatrix();
+		      glTranslatef(-74.0, 0.7+j*i, 53.0);
+		      atas_gapura();
+		      }
+		       //ujung gapura
+		      for (int i=0; i <= 4; i++ ){
+		      int j=16;
+		      glPushMatrix();
+		      glTranslatef(-74+j*i, 7.35, 53.0);
+		      atas_gapura2();
+		      }
 		        				        //2 tiang_gapura
 		        				        	for (int i=0; i <=15; i++ ){
 		        				        	float j=0.7;
@@ -1674,6 +1782,9 @@ void display(void) {
 	glTranslatef(30, 90, -150);
 	glScalef(1.8, 1.0, 1.0);
 	awan();
+
+
+	//atap();
 	//---------------------------------//
 	glutSwapBuffers();
 	glFlush();
@@ -1705,22 +1816,7 @@ static void kibor(int key, int x, int y) {
 		viewx--;
 		break;
 
-	/*case GLUT_KEY_F1: {
-		glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
-		glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-		glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-	}
-		;
-		break;
-	case GLUT_KEY_F2: {
-		glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient2);
-		glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse2);
-		glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-	}
-		;
-		break;*/
+	
 	default:
 		break;
 	}
@@ -1786,6 +1882,7 @@ int main(int argc, char **argv) {
 	initRendering();
 
 	glutDisplayFunc(display);
+	//glutDisplayFunc();
 	glutIdleFunc(display);
 	glutReshapeFunc(reshape);
 	glutSpecialFunc(kibor);
