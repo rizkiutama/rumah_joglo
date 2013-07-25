@@ -860,7 +860,7 @@ void display(void) {
 	glPopMatrix();
 
     //lantai joglo
-	LoadGLTextures ("lantai.jpg");
+	LoadGLTextures2 ("lantai.jpg");
 	glEnable(GL_TEXTURE_2D);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glPushMatrix();
@@ -872,13 +872,13 @@ void display(void) {
     // Umpak Mulai
     //---------------------------------------------------
     //umpak_belakang
-    for (int i=0; i <= 3; i++ ){
-    int j=24;
-    glPushMatrix();
-    glTranslated(-36+j*i, 1, -42);
-    glScaled(1.7, 1.7, 1.7);
-    umpak1();
-    }
+    for (int i=0; i <= 2; i++ ){
+        int j=24;
+        glPushMatrix();
+        glTranslated(-36+j*i, 1, -42);
+        glScaled(1.7, 1.7, 1.7);
+        umpak1();
+        }
 
 
     //umpak_depan
@@ -1274,23 +1274,7 @@ void display(void) {
 
 	//------------------------------------------------------//
 
-	//Jalan Setapak
-	//--------------------------------------------------------//
-		for (int i=0; i <= 14; i++ ){
-		float j=4.5;
-		glPushMatrix();
-		glTranslatef(-41.0+j*i, -0.3, 39.0);
-		//glRotated(20,0.0,20,0);
-		//jalan_setapak();
-		}
 
-		for (int i=0; i <= 2; i++ ){
-		float j=4.5;
-		glPushMatrix();
-		glTranslatef(-2.0, -0.3, 24.0+j*i);
-		glRotated(90,0.0,20,0);
-		//jalan_setapak();
-		}
 	//--------------------------------------------------------//
 	//
 
@@ -1686,6 +1670,69 @@ void display(void) {
 		        			glTranslated(-45,1, 20);
 		        			glScaled(0.5, 1, 0.5);
 		        			bawah_gapura1();
+
+		        			//tiang lampu taman3
+		        			glPushMatrix();
+		        		    glTranslatef(72,0.0,-53);
+		        			glScalef(0.5, 1.0, 0.5);
+		        			glRotatef(90,0,1,0);
+		        			tiang();
+		        			//tutup tiang lampu taman3
+		        		    glPushMatrix();
+		        			glTranslatef(72,11.7, -53);
+		        			glScalef(0.5, 1.0, 0.5);
+		        			glRotatef(90,0,1,0);
+		        			tutup_tiang();
+
+		        		    //lampu taman3
+		        	        glPushMatrix();
+		        			glTranslated(72,13.5, -53);
+		        			glScaled(0.4, 0.5, 0.5);
+		        			lampu();
+
+		        			//dasar lampu taman3
+		        			glPushMatrix();
+		        			glTranslated(72,0.0, -53);
+		        			glScaled(0.7, 1, 0.7);
+		        			bawah_gapura1();
+
+		        			//dasar atas lampu taman3
+		        			glPushMatrix();
+		        			glTranslated(72,1, -53);
+		        			glScaled(0.5, 1, 0.5);
+		        			bawah_gapura1();
+
+		        			//tiang lampu taman4
+		        			glPushMatrix();
+		        			glTranslatef(-72,0.0,-53);
+		        			glScalef(0.5, 1.0, 0.5);
+		        			glRotatef(90,0,1,0);
+		        			tiang();
+		        			//tutup tiang lampu taman4
+		        			glPushMatrix();
+		        			glTranslatef(-72,11.7, -53);
+		        			glScalef(0.5, 1.0, 0.5);
+		        			glRotatef(90,0,1,0);
+		        			tutup_tiang();
+
+		        			//lampu taman4
+		        			glPushMatrix();
+		        			glTranslated(-72,13.5, -53);
+		        			glScaled(0.4, 0.5, 0.5);
+		        			lampu();
+
+		        			//dasar lampu taman4
+		        			glPushMatrix();
+		        			glTranslated(-72,0.0, -53);
+		        			glScaled(0.7, 1, 0.7);
+		        			bawah_gapura1();
+
+		        			//dasar atas lampu taman4
+		        			glPushMatrix();
+		        			glTranslated(-72,1, -53);
+		        			glScaled(0.5, 1, 0.5);
+		        			bawah_gapura1();
+
 
 		        			//batang pohon bulat
 		        			glPushMatrix();
